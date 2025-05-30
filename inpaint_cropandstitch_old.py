@@ -206,6 +206,9 @@ class InpaintCrop:
             if not non_zero_indices[0].size(0):
                 mask = torch.zeros_like(image[:, :, :, 0])
             else:
+                # 打印图片和掩码的尺寸信息
+                print(f"图片尺寸: {image.shape}")
+                print(f"遮罩尺寸: {mask.shape}")
                 assert False, "mask size must match image size"
 
         # Fill holes if requested
