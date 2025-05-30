@@ -200,15 +200,15 @@ class InpaintCrop:
        
     # Parts of this function are from KJNodes: https://github.com/kijai/ComfyUI-KJNodes
     def inpaint_crop_single_image(self, image, mask, context_expand_pixels, context_expand_factor, fill_mask_holes, blur_mask_pixels, invert_mask, blend_pixels, mode, rescale_algorithm, force_width, force_height, rescale_factor, padding, min_width, min_height, max_width, max_height, optional_context_mask=None):
+        # 打印图片和掩码的尺寸信息
+        print(f"图片尺寸: {image.shape}")
+        print(f"遮罩尺寸: {mask.shape}")
         #Validate or initialize mask
         if mask.shape[1] != image.shape[1] or mask.shape[2] != image.shape[2]:
             non_zero_indices = torch.nonzero(mask[0], as_tuple=True)
             if not non_zero_indices[0].size(0):
                 mask = torch.zeros_like(image[:, :, :, 0])
             else:
-                # 打印图片和掩码的尺寸信息
-                print(f"图片尺寸: {image.shape}")
-                print(f"遮罩尺寸: {mask.shape}")
                 assert False, "mask size must match image size"
 
         # Fill holes if requested
